@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المسؤول - إدارة المستخدمين</title>
+    <title>CashApp(Admin)</title>
     <style>
         /* متغيرات الألوان */
         :root {
@@ -580,12 +580,6 @@
                 </svg>
                 <span>تغيير الاسم</span>
             </li>
-            <li class="nav-item" data-section="change-id">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
-                <span>تغيير المعرف</span>
-            </li>
             <li class="nav-item" data-section="delete-user">
                 <svg class="icon" viewBox="0 0 24 24">
                     <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
@@ -715,50 +709,6 @@
             </div>
         </div>
         
-        <!-- قسم تغيير المعرف -->
-        <div class="section" id="change-id-section">
-            <div class="section-title">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
-                تغيير معرف المستخدم
-            </div>
-            
-            <div class="alert" id="id-alert"></div>
-            
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label">المعرف الحالي</label>
-                    <input type="text" id="currentId" class="form-control" placeholder="أدخل المعرف الحالي">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">المعرف الجديد</label>
-                    <input type="text" id="newId" class="form-control" placeholder="أدخل المعرف الجديد">
-                </div>
-            </div>
-            
-            <div class="button-group">
-                <button class="btn btn-success" onclick="changeUserId()">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
-                    </svg>
-                    تغيير المعرف
-                </button>
-                <button class="btn btn-warning" onclick="getIdUserInfo()">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                    </svg>
-                    عرض البيانات
-                </button>
-            </div>
-            
-            <div class="loading" id="id-loading">
-                <div class="spinner"></div>
-                <p>جاري المعالجة...</p>
-            </div>
-        </div>
-        
         <!-- قسم حذف المستخدم -->
         <div class="section" id="delete-user-section">
             <div class="section-title">
@@ -876,10 +826,6 @@
         get,
         set,
         remove,
-        query,
-        orderByChild,
-        startAt,
-        endAt,
         onValue
     } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
@@ -974,6 +920,12 @@
                             <div class="detail-label">تاريخ الإنشاء:</div>
                             <div class="detail-value">${user.createdAt || 'غير محدد'}</div>
                         </div>
+                        ${user.lastUpdated ? `
+                        <div class="detail-item">
+                            <div class="detail-label">آخر تحديث:</div>
+                            <div class="detail-value">${user.lastUpdated}</div>
+                        </div>
+                        ` : ''}
                     </div>
                 `;
                 
@@ -1017,11 +969,13 @@
                 updates.createdAt = new Date().toISOString();
                 updates.createdBy = 'admin_panel';
                 updates.name = 'مستخدم جديد';
+                showAlert('update-alert', `تم إنشاء مستخدم جديد بالمعرف "${id}"`, 'success');
+            } else {
+                const oldMoney = snapshot.val().money || 0;
+                showAlert('update-alert', `تم تحديث الرصيد من ${oldMoney} إلى ${money}`, 'success');
             }
             
             await update(userRef, updates);
-            
-            showAlert('update-alert', 'تم تحديث الرصيد بنجاح', 'success');
             
             // تحديث الإحصائيات
             updateStats();
@@ -1073,6 +1027,7 @@
                 return;
             }
             
+            const oldName = snapshot.val().name || 'غير محدد';
             const updates = {
                 name: newName,
                 nameUpdated: new Date().toISOString(),
@@ -1081,7 +1036,7 @@
             
             await update(userRef, updates);
             
-            showAlert('name-alert', `تم تغيير الاسم إلى: ${newName}`, 'success');
+            showAlert('name-alert', `تم تغيير الاسم من "${oldName}" إلى "${newName}"`, 'success');
             
             // إعادة تعيين الحقل
             document.getElementById('newName').value = '';
@@ -1100,87 +1055,6 @@
             }, 500);
         } finally {
             document.getElementById('name-loading').style.display = 'none';
-        }
-    }
-
-    // === تغيير معرف المستخدم ===
-    window.changeUserId = async function() {
-        const currentId = document.getElementById('currentId').value.trim();
-        const newId = document.getElementById('newId').value.trim();
-        
-        if (!currentId || !newId) {
-            showAlert('id-alert', 'يرجى تعبئة جميع الحقول', 'warning');
-            return;
-        }
-        
-        if (currentId === newId) {
-            showAlert('id-alert', 'المعرف الجديد مماثل للمعرف الحالي', 'warning');
-            return;
-        }
-        
-        if (newId.length < 3) {
-            showAlert('id-alert', 'المعرف الجديد يجب أن يكون 3 أحرف على الأقل', 'warning');
-            return;
-        }
-        
-        document.getElementById('id-loading').style.display = 'block';
-        
-        try {
-            // التحقق من وجود المستخدم الحالي
-            const currentUserRef = ref(db, "users/" + currentId);
-            const currentSnapshot = await get(currentUserRef);
-            
-            if (!currentSnapshot.exists()) {
-                showAlert('id-alert', 'المستخدم الحالي غير موجود', 'error');
-                return;
-            }
-            
-            // التحقق من عدم وجود مستخدم بالمعرف الجديد
-            const newUserRef = ref(db, "users/" + newId);
-            const newSnapshot = await get(newUserRef);
-            
-            if (newSnapshot.exists()) {
-                showAlert('id-alert', 'المعرف الجديد موجود مسبقاً', 'error');
-                return;
-            }
-            
-            // الحصول على بيانات المستخدم الحالي
-            const userData = currentSnapshot.val();
-            
-            // إضافة معلومات التحديث
-            userData.oldId = currentId;
-            userData.idUpdated = new Date().toISOString();
-            userData.updatedBy = 'admin_panel';
-            
-            // إنشاء المستخدم بالمعرف الجديد
-            await set(newUserRef, userData);
-            
-            // حذف المستخدم بالمعرف القديم
-            await remove(currentUserRef);
-            
-            showAlert('id-alert', `تم تغيير المعرف من "${currentId}" إلى "${newId}"`, 'success');
-            
-            // إعادة تعيين الحقول
-            document.getElementById('currentId').value = '';
-            document.getElementById('newId').value = '';
-            
-            // تحديث الإحصائيات
-            updateStats();
-            
-            // تأثير نجاح
-            document.getElementById('change-id-section').classList.add('pulse');
-            setTimeout(() => {
-                document.getElementById('change-id-section').classList.remove('pulse');
-            }, 2000);
-            
-        } catch (err) {
-            showAlert('id-alert', `خطأ: ${err.message}`, 'error');
-            document.getElementById('change-id-section').classList.add('shake');
-            setTimeout(() => {
-                document.getElementById('change-id-section').classList.remove('shake');
-            }, 500);
-        } finally {
-            document.getElementById('id-loading').style.display = 'none';
         }
     }
 
@@ -1211,9 +1085,10 @@
                 return;
             }
             
+            const userName = snapshot.val().name || 'غير محدد';
             await remove(userRef);
             
-            showAlert('delete-alert', `تم حذف المستخدم "${id}" بنجاح`, 'success');
+            showAlert('delete-alert', `تم حذف المستخدم "${userName}" (${id}) بنجاح`, 'success');
             
             // إعادة تعيين الحقل
             document.getElementById('deleteUserId').value = '';
@@ -1546,21 +1421,6 @@
         }
     };
 
-    window.getIdUserInfo = function() {
-        const id = document.getElementById('currentId').value.trim();
-        if (id) {
-            // التبديل إلى قسم تعديل الرصيد وعرض البيانات
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            
-            document.querySelector('[data-section="update-money"]').classList.add('active');
-            document.getElementById('update-money-section').classList.add('active');
-            
-            document.getElementById('userId').value = id;
-            getUserInfo();
-        }
-    };
-
     window.getDeleteUserInfo = function() {
         const id = document.getElementById('deleteUserId').value.trim();
         if (id) {
@@ -1597,8 +1457,6 @@
                     updateMoney();
                 } else if (activeSection === 'change-name-section') {
                     changeUserName();
-                } else if (activeSection === 'change-id-section') {
-                    changeUserId();
                 }
             }
         });
