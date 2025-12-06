@@ -12,13 +12,10 @@
             --success: #27ae60;
             --danger: #e74c3c;
             --warning: #f39c12;
-            --info: #17a2b8;
             --light: #ecf0f1;
             --dark: #34495e;
             --white: #ffffff;
             --gray: #95a5a6;
-            --border: #ddd;
-            --shadow: rgba(0, 0, 0, 0.1);
         }
         
         /* إعادة تعيين */
@@ -30,12 +27,11 @@
         
         /* الجسم */
         body {
-            font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             direction: rtl;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+            background: linear-gradient(135deg, var(--light) 0%, #dfe6e9 100%);
             min-height: 100vh;
             color: var(--dark);
-            line-height: 1.6;
         }
         
         /* الحاوية الرئيسية */
@@ -46,217 +42,174 @@
         
         /* الشريط الجانبي */
         .sidebar {
-            width: 260px;
+            width: 250px;
             background: var(--primary);
             color: var(--white);
             padding: 20px 0;
-            box-shadow: 3px 0 15px var(--shadow);
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
             position: fixed;
             height: 100vh;
             z-index: 1000;
-            transition: all 0.3s ease;
         }
         
         .logo {
             text-align: center;
-            padding: 25px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 30px;
         }
         
         .logo h1 {
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 24px;
             color: var(--secondary);
-            letter-spacing: 1px;
         }
         
         .logo span {
             color: var(--white);
-            font-weight: 300;
         }
         
         .nav-menu {
             list-style: none;
-            padding: 0 15px;
         }
         
         .nav-item {
-            padding: 16px 20px;
-            margin: 8px 0;
+            padding: 15px 25px;
+            margin: 5px 0;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 15px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
+            gap: 10px;
         }
         
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(-5px);
+            background: rgba(255,255,255,0.1);
+            border-right: 4px solid var(--secondary);
         }
         
         .nav-item.active {
-            background: var(--secondary);
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-        }
-        
-        .nav-icon {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
+            background: rgba(255,255,255,0.15);
+            border-right: 4px solid var(--success);
         }
         
         /* المحتوى الرئيسي */
         .main-content {
             flex: 1;
-            margin-right: 260px;
-            padding: 25px;
-            transition: all 0.3s ease;
+            margin-right: 250px;
+            padding: 20px;
         }
         
         /* الهيدر */
         .header {
             background: var(--white);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px var(--shadow);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid var(--secondary);
         }
         
         .header h2 {
             color: var(--primary);
-            font-size: 30px;
-            font-weight: 700;
+            font-size: 28px;
         }
         
         .stats {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
         
         .stat-box {
-            background: linear-gradient(135deg, var(--secondary) 0%, #2980b9 100%);
-            padding: 20px;
-            border-radius: 10px;
+            background: var(--light);
+            padding: 10px 20px;
+            border-radius: 8px;
             text-align: center;
-            min-width: 150px;
-            color: var(--white);
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-box:hover {
-            transform: translateY(-3px);
+            min-width: 120px;
         }
         
         .stat-box h3 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 5px;
         }
         
         .stat-box p {
-            font-size: 15px;
-            opacity: 0.9;
+            color: var(--gray);
+            font-size: 14px;
         }
         
         /* الأقسام */
         .section {
             background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px var(--shadow);
-            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
             display: none;
-            animation: fadeIn 0.4s ease-out;
         }
         
         .section.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
         
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(15px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .section-title {
             color: var(--primary);
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--light);
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 22px;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        
-        .section-icon {
-            width: 28px;
-            height: 28px;
-            fill: var(--secondary);
+            gap: 10px;
         }
         
         /* الفورم */
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .form-label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark);
-            font-size: 16px;
+            font-size: 15px;
         }
         
         .form-control {
             width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--border);
+            padding: 12px 15px;
+            border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s;
             background: var(--light);
-            color: var(--dark);
         }
         
         .form-control:focus {
             outline: none;
             border-color: var(--secondary);
-            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
             background: var(--white);
         }
         
-        .form-control::placeholder {
-            color: var(--gray);
-            opacity: 0.7;
-        }
-        
         .btn {
-            padding: 14px 32px;
+            padding: 12px 30px;
             border: none;
             border-radius: 8px;
             font-size: 16px;
@@ -265,59 +218,51 @@
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            text-align: center;
-            justify-content: center;
+            gap: 8px;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--secondary) 0%, #2980b9 100%);
+            background: var(--secondary);
             color: var(--white);
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
         
         .btn-success {
-            background: linear-gradient(135deg, var(--success) 0%, #219653 100%);
+            background: var(--success);
             color: var(--white);
         }
         
         .btn-success:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
         }
         
         .btn-danger {
-            background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+            background: var(--danger);
             color: var(--white);
         }
         
         .btn-danger:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
         
         .btn-warning {
-            background: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%);
+            background: var(--warning);
             color: var(--white);
         }
         
         .btn-warning:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.3);
-        }
-        
-        .btn-info {
-            background: linear-gradient(135deg, var(--info) 0%, #138496 100%);
-            color: var(--white);
-        }
-        
-        .btn-info:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(23, 162, 184, 0.3);
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
         }
         
         .btn:disabled {
@@ -327,72 +272,59 @@
             box-shadow: none !important;
         }
         
-        .btn-icon {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-        
         /* التنبيهات */
         .alert {
-            padding: 18px 20px;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: none;
-            animation: slideIn 0.4s ease-out;
-            border-right: 4px solid transparent;
+            animation: slideIn 0.3s ease;
         }
         
         @keyframes slideIn {
-            from { 
-                transform: translateX(30px); 
-                opacity: 0; 
-            }
-            to { 
-                transform: translateX(0); 
-                opacity: 1; 
-            }
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         
         .alert-success {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            background: #d4edda;
             color: #155724;
-            border-right-color: #27ae60;
+            border: 1px solid #c3e6cb;
         }
         
         .alert-error {
-            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            background: #f8d7da;
             color: #721c24;
-            border-right-color: #e74c3c;
+            border: 1px solid #f5c6cb;
         }
         
         .alert-warning {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            background: #fff3cd;
             color: #856404;
-            border-right-color: #f39c12;
+            border: 1px solid #ffeaa7;
         }
         
         .alert-info {
-            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            background: #d1ecf1;
             color: #0c5460;
-            border-right-color: #17a2b8;
+            border: 1px solid #bee5eb;
         }
         
         /* المؤشر */
         .loading {
             text-align: center;
-            padding: 30px;
+            padding: 20px;
             display: none;
         }
         
         .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
+            border: 4px solid rgba(0,0,0,0.1);
             border-radius: 50%;
             border-top: 4px solid var(--secondary);
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
         }
         
         @keyframes spin {
@@ -403,60 +335,53 @@
         /* حاوية الأزرار */
         .button-group {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
         
         /* البحث */
         .search-box {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
         }
         
         .search-box .form-control {
-            padding-right: 50px;
+            padding-right: 45px;
         }
         
         .search-icon {
             position: absolute;
-            left: 18px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray);
-            width: 20px;
-            height: 20px;
         }
         
         /* الجداول */
         .table-container {
             overflow-x: auto;
-            margin-top: 25px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            box-shadow: 0 2px 8px var(--shadow);
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
         }
         
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 800px;
         }
         
         .data-table th {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%);
+            background: var(--primary);
             color: var(--white);
-            padding: 18px 20px;
+            padding: 15px;
             text-align: right;
             font-weight: 600;
-            font-size: 16px;
-            border-bottom: 3px solid var(--secondary);
         }
         
         .data-table td {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border);
-            font-size: 15px;
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
         }
         
         .data-table tr:hover {
@@ -464,71 +389,47 @@
         }
         
         .user-id {
-            font-family: 'Courier New', monospace;
-            background: #f1f3f4;
-            padding: 6px 12px;
-            border-radius: 6px;
+            font-family: monospace;
+            background: #f1f1f1;
+            padding: 3px 8px;
+            border-radius: 4px;
             font-size: 14px;
-            font-weight: 600;
-            color: var(--primary);
-            border: 1px solid var(--border);
-        }
-        
-        .table-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .table-btn {
-            padding: 6px 14px;
-            font-size: 13px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
         
         /* الصفحات */
         .pagination {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-top: 25px;
+            gap: 5px;
+            margin-top: 20px;
         }
         
         .page-btn {
-            padding: 10px 18px;
+            padding: 8px 15px;
             background: var(--light);
-            border: 2px solid var(--border);
-            border-radius: 6px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 600;
-            color: var(--dark);
         }
         
         .page-btn.active {
             background: var(--secondary);
             color: var(--white);
             border-color: var(--secondary);
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
         }
         
         .page-btn:hover:not(.active) {
-            background: #e0e0e0;
-            transform: translateY(-2px);
+            background: #ddd;
         }
         
         /* تفاصيل المستخدم */
         .user-details {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 25px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
             display: none;
-            border: 1px solid var(--border);
-            animation: fadeIn 0.4s ease-out;
         }
         
         .user-details.active {
@@ -537,116 +438,55 @@
         
         .detail-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
         }
         
         .detail-item {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .detail-label {
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .detail-label svg {
-            width: 16px;
-            height: 16px;
-            fill: var(--secondary);
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
         }
         
         .detail-value {
             background: var(--white);
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            font-size: 16px;
-            word-break: break-word;
-        }
-        
-        /* العلامات */
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin: 2px;
-        }
-        
-        .badge-success {
-            background: var(--success);
-            color: white;
-        }
-        
-        .badge-danger {
-            background: var(--danger);
-            color: white;
-        }
-        
-        .badge-warning {
-            background: var(--warning);
-            color: white;
-        }
-        
-        .badge-info {
-            background: var(--info);
-            color: white;
-        }
-        
-        /* تلميحات */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .tooltip .tooltip-text {
-            visibility: hidden;
-            width: 200px;
-            background-color: var(--dark);
-            color: var(--white);
-            text-align: center;
-            border-radius: 6px;
             padding: 10px;
-            position: absolute;
-            z-index: 1001;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 14px;
-            font-weight: normal;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
         
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
+        /* الرموز */
+        .icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
         
         /* الوسائط الصغيرة */
-        @media (max-width: 1200px) {
+        @media (max-width: 992px) {
             .sidebar {
-                width: 80px;
+                width: 70px;
                 overflow: hidden;
             }
             
+            .sidebar:hover {
+                width: 250px;
+            }
+            
             .main-content {
-                margin-right: 80px;
+                margin-right: 70px;
+            }
+            
+            .sidebar:hover ~ .main-content {
+                margin-right: 250px;
             }
             
             .nav-item span {
                 display: none;
-            }
-            
-            .sidebar:hover {
-                width: 260px;
             }
             
             .sidebar:hover .nav-item span {
@@ -654,32 +494,13 @@
             }
             
             .logo h1 {
-                font-size: 22px;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .stat-box {
-                min-width: 100%;
+                font-size: 20px;
             }
         }
         
         @media (max-width: 768px) {
-            .main-content {
-                padding: 15px;
-            }
-            
-            .section {
-                padding: 20px;
+            .form-grid {
+                grid-template-columns: 1fr;
             }
             
             .button-group {
@@ -688,28 +509,28 @@
             
             .btn {
                 width: 100%;
+                justify-content: center;
             }
             
-            .header {
+            .stats {
                 flex-direction: column;
-                gap: 20px;
-                text-align: center;
+                gap: 10px;
             }
         }
         
-        /* تأثيرات خاصة */
-        .pulse-effect {
+        /* تأثيرات إضافية */
+        .pulse {
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(52, 152, 219, 0); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
             100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
         }
         
-        .shake-effect {
-            animation: shake 0.5s ease-in-out;
+        .shake {
+            animation: shake 0.5s;
         }
         
         @keyframes shake {
@@ -717,140 +538,9 @@
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
-        
-        /* نسخ المعرف */
-        .copy-btn {
-            background: transparent;
-            border: none;
-            color: var(--secondary);
-            cursor: pointer;
-            margin-right: 8px;
-            padding: 4px;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        
-        .copy-btn:hover {
-            background: rgba(52, 152, 219, 0.1);
-        }
-        
-        /* إظهار/إخفاء كلمة المرور */
-        .password-toggle {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--gray);
-            cursor: pointer;
-            padding: 5px;
-        }
-        
-        /* الفلترة */
-        .filter-bar {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        
-        .filter-select {
-            padding: 10px 15px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background: var(--white);
-            color: var(--dark);
-            font-size: 15px;
-            min-width: 150px;
-        }
     </style>
 </head>
 <body>
-
-<!-- SVG Icons (Hidden) -->
-<svg style="display: none;">
-    <!-- Money Icon -->
-    <symbol id="icon-money" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-    </symbol>
-    
-    <!-- Edit Icon -->
-    <symbol id="icon-edit" viewBox="0 0 24 24">
-        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-    </symbol>
-    
-    <!-- Delete Icon -->
-    <symbol id="icon-delete" viewBox="0 0 24 24">
-        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-    </symbol>
-    
-    <!-- Search Icon -->
-    <symbol id="icon-search" viewBox="0 0 24 24">
-        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-    </symbol>
-    
-    <!-- Users Icon -->
-    <symbol id="icon-users" viewBox="0 0 24 24">
-        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-    </symbol>
-    
-    <!-- Save Icon -->
-    <symbol id="icon-save" viewBox="0 0 24 24">
-        <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
-    </symbol>
-    
-    <!-- ID Icon -->
-    <symbol id="icon-id" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-    </symbol>
-    
-    <!-- Refresh Icon -->
-    <symbol id="icon-refresh" viewBox="0 0 24 24">
-        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
-    </symbol>
-    
-    <!-- Copy Icon -->
-    <symbol id="icon-copy" viewBox="0 0 24 24">
-        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-    </symbol>
-    
-    <!-- Eye Icon -->
-    <symbol id="icon-eye" viewBox="0 0 24 24">
-        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-    </symbol>
-    
-    <!-- Shield Icon -->
-    <symbol id="icon-shield" viewBox="0 0 24 24">
-        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-    </symbol>
-    
-    <!-- Dashboard Icon -->
-    <symbol id="icon-dashboard" viewBox="0 0 24 24">
-        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-    </symbol>
-    
-    <!-- Arrow Icon -->
-    <symbol id="icon-arrow" viewBox="0 0 24 24">
-        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-    </symbol>
-    
-    <!-- Check Icon -->
-    <symbol id="icon-check" viewBox="0 0 24 24">
-        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-    </symbol>
-    
-    <!-- Warning Icon -->
-    <symbol id="icon-warning" viewBox="0 0 24 24">
-        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
-    </symbol>
-    
-    <!-- Info Icon -->
-    <symbol id="icon-info" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-    </symbol>
-</svg>
 
 <div class="admin-container">
     
@@ -861,32 +551,40 @@
         </div>
         
         <ul class="nav-menu">
-            <li class="nav-item active" data-section="dashboard">
-                <svg class="nav-icon"><use href="#icon-dashboard"></use></svg>
-                <span>لوحة التحكم</span>
-            </li>
-            <li class="nav-item" data-section="update-money">
-                <svg class="nav-icon"><use href="#icon-money"></use></svg>
+            <li class="nav-item active" data-section="update-money">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                </svg>
                 <span>تعديل الرصيد</span>
             </li>
             <li class="nav-item" data-section="change-name">
-                <svg class="nav-icon"><use href="#icon-edit"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
                 <span>تغيير الاسم</span>
             </li>
             <li class="nav-item" data-section="change-id">
-                <svg class="nav-icon"><use href="#icon-id"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
                 <span>تغيير المعرف</span>
             </li>
             <li class="nav-item" data-section="delete-user">
-                <svg class="nav-icon"><use href="#icon-delete"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
                 <span>حذف المستخدم</span>
             </li>
             <li class="nav-item" data-section="search-users">
-                <svg class="nav-icon"><use href="#icon-search"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
                 <span>بحث المستخدمين</span>
             </li>
             <li class="nav-item" data-section="all-users">
-                <svg class="nav-icon"><use href="#icon-users"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
                 <span>جميع المستخدمين</span>
             </li>
         </ul>
@@ -907,67 +605,15 @@
                     <h3 id="total-balance">0</h3>
                     <p>إجمالي الأرصدة</p>
                 </div>
-                <div class="stat-box">
-                    <h3 id="active-users">0</h3>
-                    <p>المستخدمين النشطين</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- قسم لوحة التحكم -->
-        <div class="section active" id="dashboard-section">
-            <div class="section-title">
-                <svg class="section-icon"><use href="#icon-dashboard"></use></svg>
-                لوحة التحكم الرئيسية
-            </div>
-            
-            <div class="alert" id="dashboard-alert"></div>
-            
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label">بحث سريع عن المستخدم</label>
-                    <div class="search-box">
-                        <input type="text" id="quick-search" class="form-control" placeholder="أدخل معرف أو اسم المستخدم">
-                        <svg class="search-icon"><use href="#icon-search"></use></svg>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">آخر المستخدمين المضافين</label>
-                    <div class="table-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>المعرف</th>
-                                    <th>الاسم</th>
-                                    <th>الرصيد</th>
-                                    <th>الإجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recent-users">
-                                <!-- سيتم تعبئتها بالجافاسكريبت -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="loadAllUsers()">
-                    <svg class="btn-icon"><use href="#icon-refresh"></use></svg>
-                    تحديث البيانات
-                </button>
-                <button class="btn btn-success" onclick="showSection('all-users')">
-                    <svg class="btn-icon"><use href="#icon-users"></use></svg>
-                    عرض جميع المستخدمين
-                </button>
             </div>
         </div>
         
         <!-- قسم تعديل الرصيد -->
-        <div class="section" id="update-money-section">
+        <div class="section active" id="update-money-section">
             <div class="section-title">
-                <svg class="section-icon"><use href="#icon-money"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                </svg>
                 تعديل رصيد المستخدم
             </div>
             
@@ -976,33 +622,33 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">معرف المستخدم</label>
-                    <input type="text" id="userId" class="form-control" placeholder="أدخل معرف المستخدم">
+                    <input type="text" id="userId" class="form-control" placeholder="أدخل المعرف">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">الرصيد الجديد</label>
-                    <input type="number" id="newMoney" class="form-control" placeholder="أدخل المبلغ الجديد">
+                    <input type="number" id="newMoney" class="form-control" placeholder="أدخل المبلغ">
                 </div>
             </div>
             
             <div class="button-group">
                 <button class="btn btn-primary" onclick="updateMoney()">
-                    <svg class="btn-icon"><use href="#icon-save"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                    </svg>
                     حفظ التغييرات
                 </button>
                 <button class="btn btn-warning" onclick="getUserInfo()">
-                    <svg class="btn-icon"><use href="#icon-search"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
                     عرض بيانات المستخدم
-                </button>
-                <button class="btn btn-info" onclick="showSection('dashboard')">
-                    <svg class="btn-icon"><use href="#icon-arrow"></use></svg>
-                    العودة للرئيسية
                 </button>
             </div>
             
             <div class="loading" id="update-loading">
                 <div class="spinner"></div>
-                <p>جاري تحديث البيانات...</p>
+                <p>جاري المعالجة...</p>
             </div>
             
             <div class="user-details" id="user-details"></div>
@@ -1011,7 +657,9 @@
         <!-- قسم تغيير الاسم -->
         <div class="section" id="change-name-section">
             <div class="section-title">
-                <svg class="section-icon"><use href="#icon-edit"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
                 تغيير اسم المستخدم
             </div>
             
@@ -1020,7 +668,7 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">معرف المستخدم</label>
-                    <input type="text" id="nameUserId" class="form-control" placeholder="أدخل معرف المستخدم">
+                    <input type="text" id="nameUserId" class="form-control" placeholder="أدخل المعرف">
                 </div>
                 
                 <div class="form-group">
@@ -1031,29 +679,31 @@
             
             <div class="button-group">
                 <button class="btn btn-success" onclick="changeUserName()">
-                    <svg class="btn-icon"><use href="#icon-save"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                    </svg>
                     تغيير الاسم
                 </button>
                 <button class="btn btn-warning" onclick="getNameUserInfo()">
-                    <svg class="btn-icon"><use href="#icon-search"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
                     عرض البيانات
-                </button>
-                <button class="btn btn-info" onclick="showSection('dashboard')">
-                    <svg class="btn-icon"><use href="#icon-arrow"></use></svg>
-                    العودة للرئيسية
                 </button>
             </div>
             
             <div class="loading" id="name-loading">
                 <div class="spinner"></div>
-                <p>جاري تحديث الاسم...</p>
+                <p>جاري المعالجة...</p>
             </div>
         </div>
         
         <!-- قسم تغيير المعرف -->
         <div class="section" id="change-id-section">
             <div class="section-title">
-                <svg class="section-icon"><use href="#icon-id"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
                 تغيير معرف المستخدم
             </div>
             
@@ -1073,29 +723,31 @@
             
             <div class="button-group">
                 <button class="btn btn-success" onclick="changeUserId()">
-                    <svg class="btn-icon"><use href="#icon-save"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                    </svg>
                     تغيير المعرف
                 </button>
                 <button class="btn btn-warning" onclick="getIdUserInfo()">
-                    <svg class="btn-icon"><use href="#icon-search"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
                     عرض البيانات
-                </button>
-                <button class="btn btn-info" onclick="showSection('dashboard')">
-                    <svg class="btn-icon"><use href="#icon-arrow"></use></svg>
-                    العودة للرئيسية
                 </button>
             </div>
             
             <div class="loading" id="id-loading">
                 <div class="spinner"></div>
-                <p>جاري تغيير المعرف...</p>
+                <p>جاري المعالجة...</p>
             </div>
         </div>
         
         <!-- قسم حذف المستخدم -->
         <div class="section" id="delete-user-section">
             <div class="section-title">
-                <svg class="section-icon"><use href="#icon-delete"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
                 حذف المستخدم
             </div>
             
@@ -1104,57 +756,45 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">معرف المستخدم</label>
-                    <input type="text" id="deleteUserId" class="form-control" placeholder="أدخل معرف المستخدم">
+                    <input type="text" id="deleteUserId" class="form-control" placeholder="أدخل المعرف">
                 </div>
             </div>
             
             <div class="button-group">
                 <button class="btn btn-danger" onclick="confirmDeleteUser()">
-                    <svg class="btn-icon"><use href="#icon-delete"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                    </svg>
                     حذف المستخدم
                 </button>
                 <button class="btn btn-warning" onclick="getDeleteUserInfo()">
-                    <svg class="btn-icon"><use href="#icon-search"></use></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
                     عرض البيانات
-                </button>
-                <button class="btn btn-info" onclick="showSection('dashboard')">
-                    <svg class="btn-icon"><use href="#icon-arrow"></use></svg>
-                    العودة للرئيسية
                 </button>
             </div>
             
             <div class="loading" id="delete-loading">
                 <div class="spinner"></div>
-                <p>جاري حذف المستخدم...</p>
+                <p>جاري المعالجة...</p>
             </div>
         </div>
         
         <!-- قسم بحث المستخدمين -->
         <div class="section" id="search-users-section">
             <div class="section-title">
-                <svg class="section-icon"><use href="#icon-search"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
                 بحث المستخدمين
             </div>
             
             <div class="search-box">
                 <input type="text" id="searchInput" class="form-control" placeholder="ابحث بالمعرف أو الاسم...">
-                <svg class="search-icon"><use href="#icon-search"></use></svg>
-            </div>
-            
-            <div class="filter-bar">
-                <select class="filter-select" id="filter-balance">
-                    <option value="">جميع الأرصدة</option>
-                    <option value="0">صفر رصيد</option>
-                    <option value="100">أكثر من 100</option>
-                    <option value="1000">أكثر من 1000</option>
-                </select>
-                
-                <select class="filter-select" id="filter-sort">
-                    <option value="newest">الأحدث أولاً</option>
-                    <option value="oldest">الأقدم أولاً</option>
-                    <option value="balance-high">الأعلى رصيداً</option>
-                    <option value="balance-low">الأقل رصيداً</option>
-                </select>
+                <svg class="search-icon" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
             </div>
             
             <div class="table-container">
@@ -1164,7 +804,6 @@
                             <th>المعرف</th>
                             <th>الاسم</th>
                             <th>الرصيد</th>
-                            <th>تاريخ الإنشاء</th>
                             <th>الإجراءات</th>
                         </tr>
                     </thead>
@@ -1178,17 +817,10 @@
         <!-- قسم جميع المستخدمين -->
         <div class="section" id="all-users-section">
             <div class="section-title">
-                <svg class="section-icon"><use href="#icon-users"></use></svg>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
                 جميع المستخدمين
-            </div>
-            
-            <div class="filter-bar">
-                <input type="text" id="all-users-search" class="form-control" placeholder="ابحث بين المستخدمين..." style="flex: 1;">
-                <select class="filter-select" id="all-users-filter">
-                    <option value="">جميع المستخدمين</option>
-                    <option value="active">النشطين فقط</option>
-                    <option value="inactive">غير النشطين</option>
-                </select>
             </div>
             
             <div class="table-container">
@@ -1199,7 +831,6 @@
                             <th>الاسم</th>
                             <th>الرصيد</th>
                             <th>تاريخ الإنشاء</th>
-                            <th>آخر تحديث</th>
                             <th>الإجراءات</th>
                         </tr>
                     </thead>
@@ -1274,28 +905,14 @@
             // إذا كان قسم جميع المستخدمين، تحميل البيانات
             if (sectionId === 'all-users') {
                 loadAllUsers();
-            } else if (sectionId === 'search-users') {
-                document.getElementById('searchInput').focus();
             }
         });
     });
 
-    // وظيفة مساعدة للتبديل بين الأقسام
-    window.showSection = function(sectionId) {
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        
-        document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
-        document.getElementById(`${sectionId}-section`).classList.add('active');
-    };
-
     // === إدارة التنبيهات ===
     function showAlert(elementId, message, type) {
         const alert = document.getElementById(elementId);
-        alert.innerHTML = `
-            <svg class="btn-icon"><use href="#icon-${type === 'success' ? 'check' : type === 'warning' ? 'warning' : 'info'}"></use></svg>
-            ${message}
-        `;
+        alert.textContent = message;
         alert.className = `alert alert-${type}`;
         alert.style.display = 'block';
         
@@ -1303,17 +920,6 @@
         setTimeout(() => {
             alert.style.display = 'none';
         }, 5000);
-    }
-
-    // === نسخ النص ===
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text)
-            .then(() => {
-                showAlert('dashboard-alert', 'تم نسخ المعرف بنجاح', 'success');
-            })
-            .catch(err => {
-                console.error('خطأ في النسخ:', err);
-            });
     }
 
     // === عرض بيانات المستخدم ===
@@ -1336,65 +942,27 @@
                 const details = `
                     <div class="detail-grid">
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <svg class="btn-icon"><use href="#icon-id"></use></svg>
-                                المعرف:
-                            </div>
-                            <div class="detail-value">
-                                <span class="user-id">${id}</span>
-                                <button class="copy-btn" onclick="copyToClipboard('${id}')" title="نسخ المعرف">
-                                    <svg class="btn-icon" style="width:16px;height:16px;"><use href="#icon-copy"></use></svg>
-                                </button>
-                            </div>
+                            <div class="detail-label">المعرف:</div>
+                            <div class="detail-value user-id">${id}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <svg class="btn-icon"><use href="#icon-edit"></use></svg>
-                                الاسم الحالي:
-                            </div>
+                            <div class="detail-label">الاسم الحالي:</div>
                             <div class="detail-value">${user.name || 'غير محدد'}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <svg class="btn-icon"><use href="#icon-money"></use></svg>
-                                الرصيد الحالي:
-                            </div>
-                            <div class="detail-value"><strong>${user.money || 0}</strong></div>
+                            <div class="detail-label">الرصيد الحالي:</div>
+                            <div class="detail-value">${user.money || 0}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <svg class="btn-icon"><use href="#icon-check"></use></svg>
-                                تاريخ الإنشاء:
-                            </div>
-                            <div class="detail-value">${user.createdAt ? formatDate(user.createdAt) : 'غير محدد'}</div>
+                            <div class="detail-label">تاريخ الإنشاء:</div>
+                            <div class="detail-value">${user.createdAt || 'غير محدد'}</div>
                         </div>
-                        <div class="detail-item">
-                            <div class="detail-label">
-                                <svg class="btn-icon"><use href="#icon-refresh"></use></svg>
-                                آخر تحديث:
-                            </div>
-                            <div class="detail-value">${user.lastUpdated ? formatDate(user.lastUpdated) : 'غير محدد'}</div>
-                        </div>
-                        ${user.email ? `
-                        <div class="detail-item">
-                            <div class="detail-label">
-                                <svg class="btn-icon"><use href="#icon-id"></use></svg>
-                                البريد الإلكتروني:
-                            </div>
-                            <div class="detail-value">${user.email}</div>
-                        </div>
-                        ` : ''}
                     </div>
                 `;
                 
                 document.getElementById('user-details').innerHTML = details;
                 document.getElementById('user-details').classList.add('active');
                 document.getElementById('newMoney').focus();
-                
-                // تعبئة الرصيد الحالي تلقائياً
-                if (user.money !== undefined) {
-                    document.getElementById('newMoney').value = user.money;
-                }
             } else {
                 showAlert('update-alert', 'المستخدم غير موجود', 'error');
                 document.getElementById('user-details').classList.remove('active');
@@ -1425,36 +993,37 @@
             const updates = {
                 money: Number(money),
                 lastUpdated: new Date().toISOString(),
-                updatedBy: 'admin_panel',
-                updatedAt: Date.now()
+                updatedBy: 'admin_panel'
             };
             
             if (!snapshot.exists()) {
                 updates.createdAt = new Date().toISOString();
                 updates.createdBy = 'admin_panel';
                 updates.name = 'مستخدم جديد';
-                showAlert('update-alert', `تم إنشاء مستخدم جديد بالمعرف "${id}"`, 'success');
-            } else {
-                const oldMoney = snapshot.val().money || 0;
-                showAlert('update-alert', `تم تحديث الرصيد من ${oldMoney} إلى ${money}`, 'success');
             }
             
             await update(userRef, updates);
             
+            showAlert('update-alert', 'تم تحديث الرصيد بنجاح', 'success');
+            
             // تحديث الإحصائيات
             updateStats();
             
+            // إعادة تعيين الحقول
+            document.getElementById('newMoney').value = '';
+            document.getElementById('user-details').classList.remove('active');
+            
             // تأثير نجاح
-            document.getElementById('update-money-section').classList.add('pulse-effect');
+            document.getElementById('update-money-section').classList.add('pulse');
             setTimeout(() => {
-                document.getElementById('update-money-section').classList.remove('pulse-effect');
+                document.getElementById('update-money-section').classList.remove('pulse');
             }, 2000);
             
         } catch (err) {
             showAlert('update-alert', `خطأ: ${err.message}`, 'error');
-            document.getElementById('update-money-section').classList.add('shake-effect');
+            document.getElementById('update-money-section').classList.add('shake');
             setTimeout(() => {
-                document.getElementById('update-money-section').classList.remove('shake-effect');
+                document.getElementById('update-money-section').classList.remove('shake');
             }, 500);
         } finally {
             document.getElementById('update-loading').style.display = 'none';
@@ -1487,29 +1056,30 @@
                 return;
             }
             
-            const oldName = snapshot.val().name || 'غير محدد';
             const updates = {
                 name: newName,
                 nameUpdated: new Date().toISOString(),
-                updatedBy: 'admin_panel',
-                updatedAt: Date.now()
+                updatedBy: 'admin_panel'
             };
             
             await update(userRef, updates);
             
-            showAlert('name-alert', `تم تغيير الاسم من "${oldName}" إلى "${newName}"`, 'success');
+            showAlert('name-alert', `تم تغيير الاسم إلى: ${newName}`, 'success');
+            
+            // إعادة تعيين الحقل
+            document.getElementById('newName').value = '';
             
             // تأثير نجاح
-            document.getElementById('change-name-section').classList.add('pulse-effect');
+            document.getElementById('change-name-section').classList.add('pulse');
             setTimeout(() => {
-                document.getElementById('change-name-section').classList.remove('pulse-effect');
+                document.getElementById('change-name-section').classList.remove('pulse');
             }, 2000);
             
         } catch (err) {
             showAlert('name-alert', `خطأ: ${err.message}`, 'error');
-            document.getElementById('change-name-section').classList.add('shake-effect');
+            document.getElementById('change-name-section').classList.add('shake');
             setTimeout(() => {
-                document.getElementById('change-name-section').classList.remove('shake-effect');
+                document.getElementById('change-name-section').classList.remove('shake');
             }, 500);
         } finally {
             document.getElementById('name-loading').style.display = 'none';
@@ -1564,7 +1134,6 @@
             userData.oldId = currentId;
             userData.idUpdated = new Date().toISOString();
             userData.updatedBy = 'admin_panel';
-            userData.updatedAt = Date.now();
             
             // إنشاء المستخدم بالمعرف الجديد
             await set(newUserRef, userData);
@@ -1582,16 +1151,16 @@
             updateStats();
             
             // تأثير نجاح
-            document.getElementById('change-id-section').classList.add('pulse-effect');
+            document.getElementById('change-id-section').classList.add('pulse');
             setTimeout(() => {
-                document.getElementById('change-id-section').classList.remove('pulse-effect');
+                document.getElementById('change-id-section').classList.remove('pulse');
             }, 2000);
             
         } catch (err) {
             showAlert('id-alert', `خطأ: ${err.message}`, 'error');
-            document.getElementById('change-id-section').classList.add('shake-effect');
+            document.getElementById('change-id-section').classList.add('shake');
             setTimeout(() => {
-                document.getElementById('change-id-section').classList.remove('shake-effect');
+                document.getElementById('change-id-section').classList.remove('shake');
             }, 500);
         } finally {
             document.getElementById('id-loading').style.display = 'none';
@@ -1625,10 +1194,9 @@
                 return;
             }
             
-            const userName = snapshot.val().name || 'غير محدد';
             await remove(userRef);
             
-            showAlert('delete-alert', `تم حذف المستخدم "${userName}" (${id}) بنجاح`, 'success');
+            showAlert('delete-alert', `تم حذف المستخدم "${id}" بنجاح`, 'success');
             
             // إعادة تعيين الحقل
             document.getElementById('deleteUserId').value = '';
@@ -1637,16 +1205,16 @@
             updateStats();
             
             // تأثير نجاح
-            document.getElementById('delete-user-section').classList.add('pulse-effect');
+            document.getElementById('delete-user-section').classList.add('pulse');
             setTimeout(() => {
-                document.getElementById('delete-user-section').classList.remove('pulse-effect');
+                document.getElementById('delete-user-section').classList.remove('pulse');
             }, 2000);
             
         } catch (err) {
             showAlert('delete-alert', `خطأ: ${err.message}`, 'error');
-            document.getElementById('delete-user-section').classList.add('shake-effect');
+            document.getElementById('delete-user-section').classList.add('shake');
             setTimeout(() => {
-                document.getElementById('delete-user-section').classList.remove('shake-effect');
+                document.getElementById('delete-user-section').classList.remove('shake');
             }, 500);
         } finally {
             document.getElementById('delete-loading').style.display = 'none';
@@ -1656,24 +1224,20 @@
     // === البحث عن المستخدمين ===
     document.getElementById('searchInput').addEventListener('input', function(e) {
         const searchTerm = e.target.value.trim().toLowerCase();
-        searchUsers(searchTerm);
-    });
-
-    document.getElementById('quick-search').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.trim().toLowerCase();
-        if (searchTerm.length >= 2) {
-            searchUsers(searchTerm);
-            showSection('search-users');
+        
+        if (searchTerm.length === 0) {
+            document.getElementById('search-results').innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                        ابدأ بالكتابة للبحث عن المستخدمين
+                    </td>
+                </tr>
+            `;
+            return;
         }
-    });
-
-    document.getElementById('filter-balance').addEventListener('change', function() {
-        const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-        searchUsers(searchTerm);
-    });
-
-    document.getElementById('filter-sort').addEventListener('change', function() {
-        const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+        
+        if (searchTerm.length < 2) return;
+        
         searchUsers(searchTerm);
     });
 
@@ -1690,44 +1254,16 @@
                 Object.keys(users).forEach(key => {
                     const user = users[key];
                     const userName = (user.name || '').toLowerCase();
-                    const userId = key.toLowerCase();
                     
-                    // تطبيق البحث
-                    if (!searchTerm || userId.includes(searchTerm) || userName.includes(searchTerm)) {
+                    if (key.toLowerCase().includes(searchTerm) || userName.includes(searchTerm)) {
                         results.push({
                             id: key,
                             name: user.name || 'غير محدد',
-                            money: user.money || 0,
-                            createdAt: user.createdAt || null,
-                            updatedAt: user.updatedAt || null
+                            money: user.money || 0
                         });
                     }
                 });
             }
-            
-            // تطبيق الفلترة حسب الرصيد
-            const balanceFilter = document.getElementById('filter-balance').value;
-            if (balanceFilter) {
-                const minBalance = parseFloat(balanceFilter);
-                results = results.filter(user => user.money >= minBalance);
-            }
-            
-            // تطبيق الترتيب
-            const sortFilter = document.getElementById('filter-sort').value;
-            results.sort((a, b) => {
-                switch(sortFilter) {
-                    case 'newest':
-                        return (b.createdAt || '').localeCompare(a.createdAt || '');
-                    case 'oldest':
-                        return (a.createdAt || '').localeCompare(b.createdAt || '');
-                    case 'balance-high':
-                        return b.money - a.money;
-                    case 'balance-low':
-                        return a.money - b.money;
-                    default:
-                        return 0;
-                }
-            });
             
             displaySearchResults(results);
             
@@ -1742,9 +1278,8 @@
         if (users.length === 0) {
             resultsContainer.innerHTML = `
                 <tr>
-                    <td colspan="5" style="text-align: center; padding: 30px; color: #666;">
-                        <svg class="btn-icon" style="width:40px;height:40px;margin-bottom:10px;"><use href="#icon-search"></use></svg>
-                        <p>لا توجد نتائج للبحث</p>
+                    <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                        لا توجد نتائج للبحث
                     </td>
                 </tr>
             `;
@@ -1755,22 +1290,14 @@
         users.forEach(user => {
             html += `
                 <tr>
-                    <td>
-                        <span class="user-id">${user.id}</span>
-                        <button class="copy-btn" onclick="copyToClipboard('${user.id}')" title="نسخ المعرف">
-                            <svg class="btn-icon" style="width:14px;height:14px;"><use href="#icon-copy"></use></svg>
-                        </button>
-                    </td>
+                    <td><span class="user-id">${user.id}</span></td>
                     <td>${user.name}</td>
                     <td><strong>${user.money}</strong></td>
-                    <td>${user.createdAt ? formatDate(user.createdAt) : 'غير معروف'}</td>
-                    <td class="table-actions">
-                        <button class="btn btn-primary table-btn" onclick="editUserFromTable('${user.id}')">
-                            <svg class="btn-icon" style="width:14px;height:14px;"><use href="#icon-edit"></use></svg>
+                    <td>
+                        <button class="btn btn-primary" onclick="editUser('${user.id}')" style="padding: 5px 10px; font-size: 14px;">
                             تعديل
                         </button>
-                        <button class="btn btn-danger table-btn" onclick="deleteFromTable('${user.id}')">
-                            <svg class="btn-icon" style="width:14px;height:14px;"><use href="#icon-delete"></use></svg>
+                        <button class="btn btn-danger" onclick="deleteFromSearch('${user.id}')" style="padding: 5px 10px; font-size: 14px;">
                             حذف
                         </button>
                     </td>
@@ -1782,14 +1309,6 @@
     }
 
     // === تحميل جميع المستخدمين ===
-    document.getElementById('all-users-search').addEventListener('input', function() {
-        displayUsersPage(currentPage);
-    });
-
-    document.getElementById('all-users-filter').addEventListener('change', function() {
-        displayUsersPage(currentPage);
-    });
-
     async function loadAllUsers() {
         try {
             const usersRef = ref(db, "users");
@@ -1805,16 +1324,9 @@
                         id: key,
                         name: users[key].name || 'غير محدد',
                         money: users[key].money || 0,
-                        createdAt: users[key].createdAt || null,
-                        updatedAt: users[key].updatedAt || null,
-                        lastUpdated: users[key].lastUpdated || null,
-                        email: users[key].email || null,
-                        phone: users[key].phone || null
+                        createdAt: users[key].createdAt || 'غير معروف'
                     });
                 });
-                
-                // تحديث المستخدمين الجدد في لوحة التحكم
-                updateRecentUsers();
             }
             
             displayUsersPage(1);
@@ -1825,72 +1337,10 @@
         }
     }
 
-    function updateRecentUsers() {
-        const recentUsersContainer = document.getElementById('recent-users');
-        const recentUsers = allUsers
-            .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''))
-            .slice(0, 5);
-        
-        if (recentUsers.length === 0) {
-            recentUsersContainer.innerHTML = `
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
-                        لا يوجد مستخدمين
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-        
-        let html = '';
-        recentUsers.forEach(user => {
-            html += `
-                <tr>
-                    <td>
-                        <span class="user-id">${user.id}</span>
-                    </td>
-                    <td>${user.name}</td>
-                    <td><strong>${user.money}</strong></td>
-                    <td class="table-actions">
-                        <button class="btn btn-primary table-btn" onclick="editUserFromTable('${user.id}')">
-                            <svg class="btn-icon" style="width:14px;height:14px;"><use href="#icon-edit"></use></svg>
-                            تعديل
-                        </button>
-                    </td>
-                </tr>
-            `;
-        });
-        
-        recentUsersContainer.innerHTML = html;
-    }
-
     function displayUsersPage(page) {
-        currentPage = page;
-        
-        // تطبيق البحث والفلترة
-        let filteredUsers = [...allUsers];
-        const searchTerm = document.getElementById('all-users-search').value.trim().toLowerCase();
-        const filterType = document.getElementById('all-users-filter').value;
-        
-        if (searchTerm) {
-            filteredUsers = filteredUsers.filter(user => 
-                user.id.toLowerCase().includes(searchTerm) || 
-                user.name.toLowerCase().includes(searchTerm)
-            );
-        }
-        
-        if (filterType === 'active') {
-            filteredUsers = filteredUsers.filter(user => user.updatedAt && (Date.now() - user.updatedAt) < 30 * 24 * 60 * 60 * 1000);
-        } else if (filterType === 'inactive') {
-            filteredUsers = filteredUsers.filter(user => !user.updatedAt || (Date.now() - user.updatedAt) >= 30 * 24 * 60 * 60 * 1000);
-        }
-        
-        // الترتيب حسب التاريخ
-        filteredUsers.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
-        
         const start = (page - 1) * usersPerPage;
         const end = start + usersPerPage;
-        const pageUsers = filteredUsers.slice(start, end);
+        const pageUsers = allUsers.slice(start, end);
         
         const tableBody = document.getElementById('all-users-table');
         let html = '';
@@ -1898,40 +1348,24 @@
         if (pageUsers.length === 0) {
             html = `
                 <tr>
-                    <td colspan="6" style="text-align: center; padding: 40px; color: #666;">
-                        <svg class="btn-icon" style="width:50px;height:50px;margin-bottom:15px;"><use href="#icon-users"></use></svg>
-                        <p>لا يوجد مستخدمين</p>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #666;">
+                        لا يوجد مستخدمين في النظام
                     </td>
                 </tr>
             `;
         } else {
             pageUsers.forEach(user => {
-                const isActive = user.updatedAt && (Date.now() - user.updatedAt) < 7 * 24 * 60 * 60 * 1000;
                 html += `
                     <tr>
-                        <td>
-                            <span class="user-id">${user.id}</span>
-                            <button class="copy-btn" onclick="copyToClipboard('${user.id}')" title="نسخ المعرف">
-                                <svg class="btn-icon" style="width:14px;height:14px;"><use href="#icon-copy"></use></svg>
-                            </button>
-                        </td>
+                        <td><span class="user-id">${user.id}</span></td>
                         <td>${user.name}</td>
+                        <td><strong>${user.money}</strong></td>
+                        <td>${formatDate(user.createdAt)}</td>
                         <td>
-                            <strong>${user.money}</strong>
-                            ${user.money === 0 ? '<span class="badge badge-warning">صفر</span>' : ''}
-                        </td>
-                        <td>${user.createdAt ? formatDate(user.createdAt) : 'غير معروف'}</td>
-                        <td>
-                            ${user.lastUpdated ? formatDate(user.lastUpdated) : 'غير معروف'}
-                            ${isActive ? '<span class="badge badge-success">نشط</span>' : ''}
-                        </td>
-                        <td class="table-actions">
-                            <button class="btn btn-primary table-btn" onclick="editUserFromTable('${user.id}')">
-                                <svg class="btn-icon" style="width:14px;height:14px;"><use href="#icon-edit"></use></svg>
+                            <button class="btn btn-primary" onclick="editUserFromTable('${user.id}')" style="padding: 5px 10px; font-size: 14px;">
                                 تعديل
                             </button>
-                            <button class="btn btn-danger table-btn" onclick="deleteFromTable('${user.id}')">
-                                <svg class="btn-icon" style="width:14px;height:14px;"><use href="#icon-delete"></use></svg>
+                            <button class="btn btn-danger" onclick="deleteFromTable('${user.id}')" style="padding: 5px 10px; font-size: 14px;">
                                 حذف
                             </button>
                         </td>
@@ -1941,11 +1375,11 @@
         }
         
         tableBody.innerHTML = html;
-        createPagination(filteredUsers.length);
+        createPagination();
     }
 
-    function createPagination(totalUsers) {
-        const totalPages = Math.ceil(totalUsers / usersPerPage);
+    function createPagination() {
+        const totalPages = Math.ceil(allUsers.length / usersPerPage);
         const pagination = document.getElementById('pagination');
         
         if (totalPages <= 1) {
@@ -1955,36 +1389,11 @@
         
         let html = '';
         
-        // زر السابق
-        if (currentPage > 1) {
-            html += `
-                <button class="page-btn" onclick="changePage(${currentPage - 1})">
-                    <svg class="btn-icon" style="width:16px;height:16px;"><use href="#icon-arrow"></use></svg>
-                    السابق
-                </button>
-            `;
-        }
-        
-        // أرقام الصفحات
         for (let i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
-                html += `
-                    <button class="page-btn ${i === currentPage ? 'active' : ''}" 
-                            onclick="changePage(${i})">
-                        ${i}
-                    </button>
-                `;
-            } else if (i === currentPage - 3 || i === currentPage + 3) {
-                html += `<span class="page-btn" style="background:transparent;border:none;">...</span>`;
-            }
-        }
-        
-        // زر التالي
-        if (currentPage < totalPages) {
             html += `
-                <button class="page-btn" onclick="changePage(${currentPage + 1})">
-                    التالي
-                    <svg class="btn-icon" style="width:16px;height:16px;transform:scaleX(-1);"><use href="#icon-arrow"></use></svg>
+                <button class="page-btn ${i === currentPage ? 'active' : ''}" 
+                        onclick="changePage(${i})">
+                    ${i}
                 </button>
             `;
         }
@@ -1993,6 +1402,7 @@
     }
 
     window.changePage = function(page) {
+        currentPage = page;
         displayUsersPage(page);
     };
 
@@ -2004,7 +1414,6 @@
             
             let totalUsers = 0;
             let totalBalance = 0;
-            let activeUsers = 0;
             
             if (snapshot.exists()) {
                 const users = snapshot.val();
@@ -2012,15 +1421,11 @@
                 
                 Object.values(users).forEach(user => {
                     totalBalance += Number(user.money) || 0;
-                    if (user.updatedAt && (Date.now() - user.updatedAt) < 7 * 24 * 60 * 60 * 1000) {
-                        activeUsers++;
-                    }
                 });
             }
             
             document.getElementById('total-users').textContent = totalUsers;
             document.getElementById('total-balance').textContent = totalBalance.toFixed(2);
-            document.getElementById('active-users').textContent = activeUsers;
             
         } catch (err) {
             console.error('خطأ في تحديث الإحصائيات:', err);
@@ -2029,29 +1434,11 @@
 
     // === وظائف مساعدة ===
     function formatDate(dateString) {
-        if (!dateString) return 'غير معروف';
+        if (!dateString || dateString === 'غير معروف') return dateString;
         
         try {
             const date = new Date(dateString);
-            const now = new Date();
-            const diffMs = now - date;
-            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-            
-            if (diffDays === 0) {
-                return 'اليوم';
-            } else if (diffDays === 1) {
-                return 'أمس';
-            } else if (diffDays < 7) {
-                return `قبل ${diffDays} أيام`;
-            } else if (diffDays < 30) {
-                return `قبل ${Math.floor(diffDays / 7)} أسابيع`;
-            } else {
-                return date.toLocaleDateString('ar-SA', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-            }
+            return date.toLocaleDateString('ar-SA');
         } catch {
             return dateString;
         }
@@ -2059,54 +1446,75 @@
 
     // تحرير المستخدم من الجدول
     window.editUserFromTable = function(userId) {
-        showSection('update-money');
+        // التبديل إلى قسم تعديل الرصيد
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        
+        document.querySelector('[data-section="update-money"]').classList.add('active');
+        document.getElementById('update-money-section').classList.add('active');
+        
+        // تعبئة البيانات
         document.getElementById('userId').value = userId;
         getUserInfo();
     };
 
-    window.deleteFromTable = async function(userId) {
-        if (!confirm(`هل تريد حذف المستخدم "${userId}"؟`)) return;
-        
-        try {
+    window.deleteFromTable = function(userId) {
+        if (confirm(`هل تريد حذف المستخدم "${userId}"؟`)) {
             const userRef = ref(db, "users/" + userId);
-            await remove(userRef);
-            
-            showAlert('dashboard-alert', `تم حذف المستخدم ${userId}`, 'success');
-            loadAllUsers();
-            
-        } catch (err) {
-            showAlert('dashboard-alert', `خطأ في الحذف: ${err.message}`, 'error');
+            remove(userRef)
+                .then(() => {
+                    showAlert('update-alert', `تم حذف المستخدم ${userId}`, 'success');
+                    loadAllUsers();
+                })
+                .catch(err => {
+                    showAlert('update-alert', `خطأ في الحذف: ${err.message}`, 'error');
+                });
         }
     };
 
-    // وظائف المساعدة للقوائم الأخرى
+    // === وظائف مساعدة للقوائم الأخرى ===
     window.getNameUserInfo = function() {
         const id = document.getElementById('nameUserId').value.trim();
         if (id) {
-            showSection('update-money');
+            // التبديل إلى قسم تعديل الرصيد وعرض البيانات
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            
+            document.querySelector('[data-section="update-money"]').classList.add('active');
+            document.getElementById('update-money-section').classList.add('active');
+            
             document.getElementById('userId').value = id;
             getUserInfo();
-            setTimeout(() => showSection('change-name'), 100);
         }
     };
 
     window.getIdUserInfo = function() {
         const id = document.getElementById('currentId').value.trim();
         if (id) {
-            showSection('update-money');
+            // التبديل إلى قسم تعديل الرصيد وعرض البيانات
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            
+            document.querySelector('[data-section="update-money"]').classList.add('active');
+            document.getElementById('update-money-section').classList.add('active');
+            
             document.getElementById('userId').value = id;
             getUserInfo();
-            setTimeout(() => showSection('change-id'), 100);
         }
     };
 
     window.getDeleteUserInfo = function() {
         const id = document.getElementById('deleteUserId').value.trim();
         if (id) {
-            showSection('update-money');
+            // التبديل إلى قسم تعديل الرصيد وعرض البيانات
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            
+            document.querySelector('[data-section="update-money"]').classList.add('active');
+            document.getElementById('update-money-section').classList.add('active');
+            
             document.getElementById('userId').value = id;
             getUserInfo();
-            setTimeout(() => showSection('delete-user'), 100);
         }
     };
 
@@ -2136,9 +1544,6 @@
                 }
             }
         });
-        
-        // تعيين التركيز على البحث السريع
-        document.getElementById('quick-search').focus();
     });
 
 </script>
