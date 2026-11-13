@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CashApp - Admin Control Panel</title>
+<style>
+  :root{
+    --bg:#f4f6f5; --card:#ffffff; --green:#16a34a; --green-dark:#15803d;
+    --green-soft:#e8f5ec; --text:#1f2937; --muted:#6b7280; --border:#d1d5db;
+    --danger:#dc2626; --gold:#b8860b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
+  body{background:var(--bg);color:var(--text);min-height:100vh;padding:20px}
+  .hidden{display:none!important}
+  button{font-family:inherit}
+
+  /* ===== PIN Screen ===== */
+  #pinScreen{display:flex;align-items:center;justify-content:center;min-height:90vh}
+  .pin-box{background:var(--card);border:2px solid var(--green);border-radius:16px;padding:35px 30px;width:100%;max-width:380px;box-shadow:0 10px 30px rgba(22,163,74,.12);text-align:center}
+  .pin-box h1{font-size:24px;color:var(--green-dark);margin-bottom:8px}
+  .pin-box p{color:var(--muted);font-size:14px;margin-bottom:20px}
+  .field{margin-bottom:15px;text-align:left}
+  .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  .field input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--text);font-size:16px;outline:none;text-align:center;letter-spacing:4px}
+  .field input:focus{border-color:var(--green)}
+  .btn{width:100%;padding:13px;border:none;border-radius:10px;background:var(--green);color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
+  .btn:hover{background:var(--green-dark)}
+  #pinMsg{margin-top:12px;font-size:14px;color:var(--danger)}
+
+  /* ===== Admin Dashboard ===== */
+  #adminApp{max-width:800px;margin:0 auto}
+  .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;background:var(--card);padding:16px 20px;border-radius:14px;border:1.5px solid var(--green)}
+  .header h2{color:var(--green-dark);font-size:20px}
+  .lock-btn{background:var(--danger);color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:700}
+
+  .card{background:var(--card);border:1.5px solid var(--green);border-radius:14px;padding:20px;margin-bottom:20px;box-shadow:0 4px 15px rgba(22,163,74,.08)}
+  .card h3{color:var(--green-dark);margin-bottom:15px;font-size:18px}
+
+  .settings-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+  .settings-grid .field{margin-bottom:0}
+  .checkbox-field{display:flex;align-items:center;gap:8px;height:45px;font-weight:700;color:var(--muted)}
+  .checkbox-field input{width:18px;height:18px;accent-color:var(--green)}
+
+  .search-box{margin-bottom:15px}
+  .search-box input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);font-size:15px;outline:none}
+  .search-box input:focus{border-color:var(--green)}
+
+  .users-list{display:flex;flex-direction:column;gap:12px}
+  .user-card{background:#fafafa;border:1px solid var(--border);border-radius:10px;padding:15px;display:grid;grid-template-columns:1.2fr 1fr 1fr auto auto;gap:10px;align-items:center}
+  @media(max-width:768px){.user-card{grid-template-columns:1fr;}}
+  
+  .user-field input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);font-size:14px}
+  .user-field label{font-size:11px;color:var(--muted);display:block;margin-bottom:3px}
+  .gold-check{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--gold)}
+  .gold-check input{accent-color:var(--gold);width:16px;height:16px}
+  .save-user-btn{background:var(--green);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer}
+  .save-user-btn:hover{background:var(--green-dark)}
+  .msg-tip{font-size:12px;color:var(--green-dark);margin-top:5px;text-align:center}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- ============ PIN Passcode Screen ============ -->
+<div id="pinScreen">
+  <div class="pin-box">
+    <h1>Admin Panel</h1>
+    <p>Enter the security PIN to continue</p>
+    <div class="field">
+      <label>Security PIN</label>
+      <input id="pinInput" type="password" maxlength="4" placeholder="••••">
+    </div>
+    <button class="btn" id="loginBtn">Login</button>
+    <p id="pinMsg"></p>
+  </div>
+</div>
+
+<!-- ============ Admin Dashboard ============ -->
+<div id="adminApp" class="hidden">
+  <div class="header">
+    <h2>CashApp Admin Dashboard</h2>
+    <button class="lock-btn" id="lockBtn">Lock Panel</button>
+  </div>
+
+  <!-- Global Settings Card -->
+  <div class="card">
+    <h3>Global Settings (Tax)</h3>
+    <div class="settings-grid">
+      <div class="field">
+        <label>Tax Rate (e.g. 0.05 for 5%)</label>
+        <input id="taxRateInput" type="number" step="0.01" min="0" max="1">
+      </div>
+      <div class="checkbox-field">
+        <input id="taxEnabledInput" type="checkbox"> Enable Global Tax
+      </div>
+      <button class="btn" id="saveSettingsBtn" style="height:45px">Save Settings</button>
+    </div>
+    <div id="settingsMsg" class="msg-tip"></div>
+  </div>
+
+  <!-- Users Management Card -->
+  <div class="card">
+    <h3>Users & Balances Management</h3>
+    <div class="search-box">
+      <input id="searchInput" placeholder="Search by 12-digit ID or username...">
+    </div>
+    <div class="users-list" id="usersList">
+      <div style="text-align:center;color:var(--muted);padding:20px">Loading users...</div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAw2y8F44ilNOYjXv-kV3oimdQ7lWtfyDA",
+  authDomain: "cashapp-6a4b1.firebaseapp.com",
+  databaseURL: "https://cashapp-6a4b1-default-rtdb.firebaseio.com",
+  projectId: "cashapp-6a4b1",
+  storageBucket: "cashapp-6a4b1.firebasestorage.app",
+  messagingSenderId: "129250921796",
+  appId: "1:129250921796:web:83cc192834011ae9859b11",
+  measurementId: "G-RK33WK33FQ"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const $ = id => document.getElementById(id);
+
+let allUsersData = {};
+
+// PIN Check
+$('loginBtn').onclick = () => {
+  if($('pinInput').value === '1234'){
+    $('pinScreen').classList.add('hidden');
+    $('adminApp').classList.remove('hidden');
+    loadAdminData();
+  } else {
+    $('pinMsg').textContent = 'Incorrect PIN! (The PIN is 1234)';
+  }
+};
+$('pinInput').addEventListener('keydown', e => { if(e.key==='Enter') $('loginBtn').click(); });
+
+$('lockBtn').onclick = () => {
+  $('adminApp').classList.add('hidden');
+  $('pinScreen').classList.remove('hidden');
+  $('pinInput').value = '';
+  $('pinMsg').textContent = '';
+};
+
+// Load Data from RTDB
+function loadAdminData(){
+  // 1. Load Settings
+  onValue(ref(db, 'settings/global'), snap => {
+    if(snap.exists()){
+      const s = snap.val();
+      $('taxEnabledInput').checked = !!s.taxEnabled;
+      $('taxRateInput').value = s.taxRate || 0.05;
+    }
+  });
+
+  // 2. Load Users
+  onValue(ref(db, 'users'), snap => {
+    if(snap.exists()){
+      allUsersData = snap.val();
+      renderUsersList(allUsersData);
+    } else {
+      $('usersList').innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px">No registered users found yet</div>';
+    }
+  });
+}
+
+// Save Global Settings
+$('saveSettingsBtn').onclick = async () => {
+  try {
+    await set(ref(db, 'settings/global'), {
+      taxEnabled: $('taxEnabledInput').checked,
+      taxRate: Number($('taxRateInput').value) || 0
+    });
+    $('settingsMsg').textContent = 'Global settings saved successfully ✓';
+    setTimeout(()=> $('settingsMsg').textContent = '', 3000);
+  } catch(e) {
+    alert('Save error: ' + e.message);
+  }
+};
+
+// Render Users List
+function renderUsersList(usersObj){
+  const filter = $('searchInput').value.trim().toLowerCase();
+  const listEl = $('usersList');
+  
+  let html = '';
+  let count = 0;
+
+  for(let uid in usersObj){
+    const u = usersObj[uid];
+    const username = u.username || '';
+    const userId = u.userId || '';
+    const balance = u.balance !== undefined ? u.balance : 0;
+    const isGold = !!u.isGold;
+
+    // Filter check
+    if(filter && !userId.toLowerCase().includes(filter) && !username.toLowerCase().includes(filter)){
+      continue;
+    }
+    count++;
+
+    html += `
+      <div class="user-card" id="card-${uid}">
+        <div class="user-field">
+          <label>Username</label>
+          <input type="text" id="name-${uid}" value="${username}">
+        </div>
+        <div class="user-field">
+          <label>ID (12 digits)</label>
+          <input type="text" id="id-${uid}" value="${userId}" maxlength="12">
+        </div>
+        <div class="user-field">
+          <label>Balance ($)</label>
+          <input type="number" step="0.01" id="bal-${uid}" value="${balance}">
+        </div>
+        <div class="user-field" style="display:flex; align-items:center;">
+          <label class="gold-check">
+            <input type="checkbox" id="gold-${uid}" ${isGold ? 'checked' : ''}> Gold Account
+          </label>
+        </div>
+        <div>
+          <button class="save-user-btn" onclick="window.saveUserData('${uid}')">Save</button>
+        </div>
+      </div>
+    `;
+  }
+
+  if(count === 0){
+    listEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px">No matching user found</div>';
+  } else {
+    listEl.innerHTML = html;
+  }
+}
+
+// Search input event
+$('searchInput').addEventListener('input', () => {
+  renderUsersList(allUsersData);
+});
+
+// Global function to save specific user modifications
+window.saveUserData = async (uid) => {
+  const newName = $('name-' + uid).value.trim();
+  const newId = $('id-' + uid).value.trim();
+  const newBal = Number($('bal-' + uid).value) || 0;
+  const newGold = $('gold-' + uid).checked;
+
+  if(!/^\d{12}$/.test(newId)){
+    alert('Error: ID must be exactly 12 digits!');
+    return;
+  }
+
+  try {
+    await update(ref(db, 'users/' + uid), {
+      username: newName,
+      userId: newId,
+      balance: newBal,
+      isGold: newGold
+    });
+    alert('User data updated successfully! ✓');
+  } catch(e) {
+    alert('Update failed: ' + e.message);
+  }
+};
+</script>
+</body>
+</html>
