@@ -52,18 +52,32 @@
   .search-box input:focus{border-color:var(--green)}
 
   .users-list{display:flex;flex-direction:column;gap:12px}
-  .user-card{background:#fafafa;border:1px solid var(--border);border-radius:10px;padding:15px;display:grid;grid-template-columns:1fr 0.9fr 0.9fr auto auto auto;gap:10px;align-items:center}
-  @media(max-width:850px){.user-card{grid-template-columns:1fr;}}
+  .user-card{background:#fafafa;border:1px solid var(--border);border-radius:10px;padding:15px;display:grid;grid-template-columns:1fr 0.8fr 0.8fr auto auto auto auto;gap:10px;align-items:center;cursor:pointer;transition:.2s}
+  .user-card:hover{background:var(--green-soft);border-color:var(--green)}
+  @media(max-width:900px){.user-card{grid-template-columns:1fr;}}
   
   .user-field input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);font-size:14px}
   .user-field label{font-size:11px;color:var(--muted);display:block;margin-bottom:3px}
   .gold-check{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--gold)}
   .gold-check input{accent-color:var(--gold);width:16px;height:16px}
-  .save-user-btn{background:var(--green);color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+  .save-user-btn{background:var(--green);color:#fff;border:none;padding:10px 12px;border-radius:8px;font-weight:700;cursor:pointer}
   .save-user-btn:hover{background:var(--green-dark)}
-  .del-user-btn{background:var(--danger);color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+  .del-user-btn{background:var(--danger);color:#fff;border:none;padding:10px 12px;border-radius:8px;font-weight:700;cursor:pointer}
   .del-user-btn:hover{background:#b91c1c}
+  .inspect-btn{background:var(--muted);color:#fff;border:none;padding:10px 12px;border-radius:8px;font-weight:700;cursor:pointer}
+  .inspect-btn:hover{background:#4b5563}
   .msg-tip{font-size:12px;color:var(--green-dark);margin-top:5px;text-align:center}
+
+  /* ===== Modal for User Inspection & Statement ===== */
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}
+  .modal{background:#fff;border:2px solid var(--green);border-radius:16px;padding:28px 24px;width:100%;max-width:650px;max-height:90vh;overflow-y:auto}
+  .modal h3{color:var(--green-dark);margin-bottom:15px;display:flex;justify-content:space-between;align-items:center}
+  .close-x{cursor:pointer;color:var(--muted);font-size:24px}
+  .statement-list{display:flex;flex-direction:column;gap:8px;margin-top:15px;max-height:300px;overflow-y:auto;padding-right:5px}
+  .tx-row{background:#f9fafb;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+  .tx-row.out{border-left-color:var(--danger)}
+  .tx-del{background:var(--danger);color:#fff;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px}
+  .modal-actions{display:flex;justify-content:space-between;margin-top:20px;align-items:center}
 </style>
 <base target="_blank">
 </head>
@@ -129,11 +143,39 @@
   <!-- Users Management Card -->
   <div class="card">
     <h3>Users & Balances Management</h3>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Click on any user row or inspect button to view account statement and transactions.</p>
     <div class="search-box">
       <input id="searchInput" placeholder="Search by 12-digit ID or username...">
     </div>
     <div class="users-list" id="usersList">
       <div style="text-align:center;color:var(--muted);padding:20px">Loading users...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ User Statement Modal ============ -->
+<div id="statementModal" class="modal-bg hidden">
+  <div class="modal">
+    <h3>
+      <span id="modalUsername">User Statement</span>
+      <span class="close-x" id="closeModal">&times;</span>
+    </h3>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:15px">
+      User ID: <b id="modalUserId" style="color:var(--green-dark)">---</b> | 
+      Current Balance: <b id="modalUserBal" style="color:var(--green-dark)">$0.00</b>
+    </div>
+    
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <b>Transaction History (Statement)</b>
+      <button class="btn-danger" id="clearUserTxBtn" style="padding:6px 12px;font-size:12px;border-radius:6px;width:auto">Clear All User Transactions</button>
+    </div>
+    
+    <div class="statement-list" id="modalTxList">
+      <div style="text-align:center;color:var(--muted);padding:20px">No transactions found for this user.</div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn" id="closeModalBtn" style="width:auto;padding:10px 25px">Close</button>
     </div>
   </div>
 </div>
@@ -159,7 +201,9 @@ const db = getDatabase(app);
 const $ = id => document.getElementById(id);
 
 let allUsersData = {};
+let allTransactionsData = {};
 let goldTimer = null;
+let currentInspectedUid = null;
 
 // PIN Check
 $('loginBtn').onclick = () => {
@@ -192,14 +236,13 @@ function loadAdminData(){
     }
   });
 
-  // 2. Load Gold Rewards Settings & Setup Automatic Interval
+  // 2. Load Gold Rewards Settings & Setup Timer
   onValue(ref(db, 'settings/goldRewards'), snap => {
     if(snap.exists()){
       const g = snap.val();
       $('goldRewardsEnabled').checked = !!g.enabled;
       $('goldRewardAmount').value = g.amount || 10;
       $('goldRewardInterval').value = g.interval || 60;
-      
       setupGoldRewardTimer(g);
     } else {
       set(ref(db, 'settings/goldRewards'), { enabled: false, amount: 10, interval: 60 });
@@ -211,8 +254,23 @@ function loadAdminData(){
     if(snap.exists()){
       allUsersData = snap.val();
       renderUsersList(allUsersData);
+      if(currentInspectedUid && allUsersData[currentInspectedUid]){
+        openStatementModal(currentInspectedUid);
+      }
     } else {
       $('usersList').innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px">No registered users found yet</div>';
+    }
+  });
+
+  // 4. Load Transactions for statements
+  onValue(ref(db, 'transactions'), snap => {
+    if(snap.exists()){
+      allTransactionsData = snap.val();
+    } else {
+      allTransactionsData = {};
+    }
+    if(currentInspectedUid){
+      openStatementModal(currentInspectedUid);
     }
   });
 }
@@ -294,27 +352,30 @@ function renderUsersList(usersObj){
 
     html += `
       <div class="user-card" id="card-${uid}">
-        <div class="user-field">
+        <div class="user-field" onclick="event.stopPropagation()">
           <label>Username</label>
           <input type="text" id="name-${uid}" value="${username}">
         </div>
-        <div class="user-field">
+        <div class="user-field" onclick="event.stopPropagation()">
           <label>ID (12 digits)</label>
           <input type="text" id="id-${uid}" value="${userId}" maxlength="12">
         </div>
-        <div class="user-field">
+        <div class="user-field" onclick="event.stopPropagation()">
           <label>Balance ($)</label>
           <input type="number" step="0.01" id="bal-${uid}" value="${balance}">
         </div>
-        <div class="user-field" style="display:flex; align-items:center;">
+        <div class="user-field" style="display:flex; align-items:center;" onclick="event.stopPropagation()">
           <label class="gold-check">
-            <input type="checkbox" id="gold-${uid}" ${isGold ? 'checked' : ''}> Gold Account
+            <input type="checkbox" id="gold-${uid}" ${isGold ? 'checked' : ''}> Gold
           </label>
         </div>
-        <div>
+        <div onclick="event.stopPropagation()">
           <button class="save-user-btn" onclick="window.saveUserData('${uid}')">Save</button>
         </div>
-        <div>
+        <div onclick="event.stopPropagation()">
+          <button class="inspect-btn" onclick="window.openStatementModal('${uid}')">Statement</button>
+        </div>
+        <div onclick="event.stopPropagation()">
           <button class="del-user-btn" onclick="window.deleteUser('${uid}')">Delete</button>
         </div>
       </div>
@@ -362,9 +423,97 @@ window.deleteUser = async (uid) => {
   if(!confirm('Are you sure you want to delete this user completely from Firebase?')) return;
   try {
     await remove(ref(db, 'users/' + uid));
+    if(currentInspectedUid === uid) closeModal();
     alert('User deleted successfully! ✓');
   } catch(e) {
     alert('Delete failed: ' + e.message);
+  }
+};
+
+// Open Statement Modal
+window.openStatementModal = (uid) => {
+  currentInspectedUid = uid;
+  const u = allUsersData[uid];
+  if(!u) return;
+
+  $('modalUsername').textContent = u.username + ' - Account Statement';
+  $('modalUserId').textContent = u.userId || '---';
+  $('modalUserBal.toFixed(2)');
+  $('modalUserBal').textContent = '$' + Number(u.balance || 0).toLocaleString('en-US',{minimumFractionDigits:2});
+
+  let txHtml = '';
+  let userTxCount = 0;
+
+  for(let txKey in allTransactionsData){
+    const t = allTransactionsData[txKey];
+    if(t.fromUid === uid || t.toUid === uid){
+      userTxCount++;
+      const isOut = t.fromUid === uid;
+      const otherName = isOut ? (t.toName || 'User') : (t.fromName || 'User');
+      const desc = isOut ? `Sent to: ${otherName}` : `Received from: ${otherName}`;
+      const dateStr = t.timestamp ? new Date(t.timestamp).toLocaleString('en-US') : '';
+      const amtStr = (isOut ? '-' : '+') + '$' + Number(t.total || t.amount || 0).toFixed(2);
+      const amtColor = isOut ? 'var(--danger)' : 'var(--green-dark)';
+
+      txHtml += `
+        <div class="tx-row ${isOut ? 'out' : ''}">
+          <div>
+            <div style="font-weight:700">${desc}</div>
+            <div style="font-size:11px;color:var(--muted)">${dateStr}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-weight:800;color:${amtColor}">${amtStr}</span>
+            <button class="tx-del" onclick="window.deleteSingleTx('${txKey}')">Delete</button>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  if(userTxCount === 0){
+    $('modalTxList').innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px">No transactions found for this user.</div>';
+  } else {
+    $('modalTxList').innerHTML = txHtml;
+  }
+
+  $('statementModal').classList.remove('hidden');
+};
+
+function closeModal(){
+  $('statementModal').classList.add('hidden');
+  currentInspectedUid = null;
+}
+
+$('closeModal').onclick = closeModal;
+$('closeModalBtn').onclick = closeModal;
+
+// Delete single transaction
+window.deleteSingleTx = async (txKey) => {
+  if(!confirm('Are you sure you want to delete this transaction?')) return;
+  try {
+    await remove(ref(db, 'transactions/' + txKey));
+  } catch(e) {
+    alert('Failed to delete transaction: ' + e.message);
+  }
+};
+
+// Clear all transactions for inspected user
+$('clearUserTxBtn').onclick = async () => {
+  if(!currentInspectedUid) return;
+  if(!confirm('Are you sure you want to delete ALL transactions for this user?')) return;
+
+  try {
+    const updates = {};
+    for(let txKey in allTransactionsData){
+      const t = allTransactionsData[txKey];
+      if(t.fromUid === currentInspectedUid || t.toUid === currentInspectedUid){
+        updates['transactions/' + txKey] = null;
+      }
+    }
+    await update(ref(db), updates);
+    alert('All user transactions cleared successfully! ✓');
+  } catch(e) {
+    alert('Failed to clear transactions: ' + e.message);
   }
 };
 </script>
